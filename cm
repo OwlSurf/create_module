@@ -1,0 +1,69 @@
+#!/bin/bash
+#
+# Create module script.
+#
+
+module_name=$1
+author_name=$2
+author_last_name=$3
+
+if [ -z $module_name ]; then
+	echo No module name
+	exit
+fi
+
+if [ -z $author_name ]; then
+	author_name=$(whoami)
+fi
+
+if [ -d Inc ]; then
+	rm -r Inc
+fi
+
+if [ -d Src ]; then
+	rm -r Src
+fi
+
+mkdir Inc Src
+# Create header file/.
+echo -e	"/**\n" \
+	"*\\\file $module_name.h\n" \
+	"*\\\brief $module_name module\n" \
+	"*\\\author $author_name $author_last_name\n" \
+	"*\\\copyright (c) $author_name $author_last_name\n" \
+	"*\n" \
+	"*\\\date $(date "+%d.%m.%Y %H:%M:%S")\n" \
+	"*/\n" \
+	>> Inc/$module_name.h
+
+DEF_H=INC_$(echo "$module_name" | tr '[:lower:]' '[:upper:]')_H_
+
+echo -e "#ifndef $DEF_H\n" \
+	"#define $DEF_H\n" \
+	"\n" \
+	"#define _CRT_SECURE_NO_WARNINGS \n" \
+	"\n" \
+	"#ifdef __cplusplus\n" \
+	"extern  \"C\" {\n" \
+	"#endif\n" \
+	"\n" \
+	"\n" \
+	"\n" \
+	"#ifdef __cplusplus\n" \
+	"}\n" \
+	"#endif\n"\
+	"#endif /* $DEF_H */" \
+	>> Inc/$module_name.h
+
+# Create source file.
+echo -e	"/**\n" \
+	"*\\\file $module_name.c\\n" \
+	"*\\\brief $module_name module\n" \
+	"*\\\author $author_name $author_last_name\n" \
+	"*\\\copyright (c) $author_name $author_last_name\n" \
+	"*\n" \
+	"*\\\date $(date "+%d.%m.%Y %H:%M:%S")\n" \
+	"*/\n" \
+	"\n" \
+	"#include \"$module_name.h\"" \
+	>> Src/$module_name.c
