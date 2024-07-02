@@ -38,7 +38,7 @@ echo -e	"/**\n" \
 
 DEF_H=INC_$(echo "$module_name" | tr '[:lower:]' '[:upper:]')_H_
 
-echo -e "#ifndef $DEF_H\n" \
+echo -e "" "#ifndef $DEF_H\n" \
 	"#define $DEF_H\n" \
 	"\n" \
 	"#define _CRT_SECURE_NO_WARNINGS \n" \
@@ -53,7 +53,7 @@ echo -e "#ifndef $DEF_H\n" \
 	"}\n" \
 	"#endif\n"\
 	"#endif /* $DEF_H */" \
-	>> Inc/$module_name.h
+	| sed 's/ //' >> Inc/$module_name.h
 
 # Create source file.
 echo -e	"/**\n" \
@@ -64,6 +64,7 @@ echo -e	"/**\n" \
 	"*\n" \
 	"*\\\date $(date "+%d.%m.%Y %H:%M:%S")\n" \
 	"*/\n" \
-	"\n" \
-	"#include \"$module_name.h\"" \
 	>> Src/$module_name.c
+echo -e "#include \"$module_name.h\"" >> Src/$module_name.c
+
+
