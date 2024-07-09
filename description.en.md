@@ -1,6 +1,6 @@
 # Create module script.
 
-## Скрипт создает два файла::
+## This script creates two files:
     - Inc/file.h
 ```C
 /**
@@ -41,5 +41,5 @@ extern  "C" {
 
 #include "file.h"
 ```
-## Как использовать::
+## How to use:
     ./cm module name author_name author_last_name
